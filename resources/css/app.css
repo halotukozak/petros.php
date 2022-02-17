@@ -1,0 +1,9 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+.is-invalid{
+   @apply bg-red-400
+}
+label{
+    @apply text-xl
+}
