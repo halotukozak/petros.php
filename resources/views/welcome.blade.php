@@ -7,7 +7,7 @@
 
     <div class="bg-tide">
         <div class="flex justify-center h-screen">
-            <div class="hidden bg-cover lg:block lg:w-2/3" style='background-image: url("/img/background.jpg")'>
+            <div class="hidden bg-cover lg:block lg:w-2/3" style='background-image: {{ asset("img/background.jpg") }}'">
                 <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
                     <div>
                         <h2 class="text-2xl font-bold text-white">Niech cię Pan błogosławi i strzeże. Niech Pan rozpromieni oblicze swe nad tobą, niech cię obdarzy swą łaską. Niech zwróci ku tobie oblicze swoje i niech cię obdarzy pokojem. </p>

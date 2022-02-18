@@ -10,18 +10,21 @@
                     @foreach($donations as $donation)
                         <div class="px-8 py-4 mx-auto bg-white rounded-lg shadow-md border-tide border-2 m-1">
                             <div class="flex items-center justify-between">
-                                <span class="text-sm font-light text-gray-600 ">{{ $donation->created_at->format("d/m/Y") }}</span>
-                                <span class="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-gray-600 rounded">{{ $donation->purpose }}</span>
+                                <span
+                                    class="text-sm font-light text-gray-600 ">{{ $donation->created_at->format("d/m/Y") }}</span>
+                                <span
+                                    class="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-200 transform bg-gray-600 rounded">{{ $donation->purpose }}</span>
                             </div>
 
                             <div class="mt-2">
                                 <span
-                                   class="text-2xl font-bold text-gray-700  hover:text-gray-600  hover:underline">{{ $donation->donor }}</span>
+                                    class="text-2xl font-bold text-gray-700">{{ $donation->donor }}</span>
                                 <p class="mt-2 text-gray-600 ">{{ $donation->memoriam }}</p>
                             </div>
 
                             <div class="flex items-center justify-between mt-4">
-                                <a class="text-blue-600 hover:underline cursor-pointer">{{ __('Print') }}</a>
+                                <a class="text-blue-600 hover:underline cursor-pointer"
+                                   href="{{ route('donates.show', ['donate' =>$donation]) }}">{{ __('Print') }}</a>
 
                                 <div class="flex items-center">
                                     <span class="font-bold text-gray-700">{{ $donation->amount }}€</span>
@@ -30,6 +33,7 @@
                         </div>
 
                     @endforeach
+                    {{ $donations->links() }}
                 </div>
             </div>
         </div>

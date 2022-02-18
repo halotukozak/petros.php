@@ -17,7 +17,10 @@ class DonateFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'donor' => $this->faker->name(),
+            'purpose' => $this->faker->randomElement(['church', 'cemetery']),
+            'memoriam' => $this->faker->sentence(),
+            'amount' => $this->faker->randomFloat(2, 1, 100)
         ];
     }
 }

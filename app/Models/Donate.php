@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Donate extends Model
 {
     protected $fillable = [
-        'doner', 'purpose', 'memoriam', 'amount'
+        'donor', 'purpose', 'memoriam', 'amount'
     ];
 
     use HasFactory;
     use SoftDeletes;
+
 }

@@ -9,10 +9,13 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+
+<style>
+
+</style>
 </head>
 <body class="font-sans antialiased">
 <div class="min-h-screen bg-gothic">
-
 
 
     <!-- Page Content -->
