@@ -18,9 +18,10 @@ class DonateFactory extends Factory
     {
         return [
             'donor' => $this->faker->name(),
-            'purpose' => $this->faker->randomElement(['church', 'cemetery']),
+            'purpose' => $this->faker->randomElement(['church', 'cemetery', 'parish']),
             'memoriam' => $this->faker->sentence(),
-            'amount' => $this->faker->randomFloat(2, 1, 100)
+            'amount' => $this->faker->randomFloat(2, 1, 100),
+            'created_at' => $this->faker->date()
         ];
     }
 }

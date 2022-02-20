@@ -15,7 +15,7 @@
                     <div
                         class="container flex items-center justify-center p-6 mx-auto text-gray-600 capitalize dark:text-gray-300">
 
-                        @foreach(['create', 'index'] as $page)
+                        @foreach(['create', 'index', 'report'] as $page)
                             <x-nav-link :href="route('donates.'.$page)" :active="request()->routeIs('donates.'.$page)">
                             {{ __($page) }}
                         </x-nav-link>
@@ -77,7 +77,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            @foreach(['create', 'index'] as $page)
+            @foreach(['create', 'index', 'report'] as $page)
                 <x-responsive-nav-link :href="route('donates.' . $page)" :active="request()->routeIs('donates.' . $page)">
                     {{ __($page) }}
                 </x-responsive-nav-link>

@@ -17,6 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::resource('donates', 'App\Http\Controllers\DonateController')->middleware(['auth']);
+Route::middleware(['auth'])->group(function (){
+    Route::get('/donates/{id}/delete', 'App\Http\Controllers\DonateController@delete')->name('donate.delete');
+    Route::get('/donates/search', 'App\Http\Controllers\DonateController@search')->name('donate.search');
+    Route::get('/donates/report', 'App\Http\Controllers\DonateController@report')->name('donates.report');
+    Route::resource('donates', 'App\Http\Controllers\DonateController');
+});
+
 
 require __DIR__ . '/auth.php';

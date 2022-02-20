@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MonthlyRaport;
 use App\Models\Donate;
+use Egulias\EmailValidator\Result\Reason\DomainAcceptsNoMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
 use PDF;
+use Symfony\Component\Console\Input\Input;
+
 class DonateController extends Controller
 {
 
     public function index()
     {
+        Mail::to(auth()->user())->send(new MonthlyRaport());
         return view('donates.index')->with('donations', Donate::orderByDesc('id')->paginate(15));
     }
 
@@ -30,7 +36,7 @@ class DonateController extends Controller
             'donor' => 'string|max:255',
             'purpose' => [
                 'required',
-                Rule::in(['church', 'cemetery'])
+                Rule::in(['church', 'cemetery', 'parish'])
             ],
             'memoriam' => 'nullable|string',
             'amount' => 'required'
@@ -54,20 +60,48 @@ class DonateController extends Controller
     }
 
 
-    public function edit($id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
     public function destroy($id)
     {
-        //
+        Donate::find($id)->delete();
+        return redirect()->route('donates.index');
+    }
+
+    public function delete($id)
+    {
+        $donation = Donate::find($id);
+
+        return view('donates.destroy', compact('donation'));
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $start = $request->start;
+        $end = $request->end;
+
+        $donations = Donate::whereBetween('created_at', [$start, $end])->where(function ($query) use ($search) {
+            $query->where('donor', 'LIKE', "%{$search}%")
+                ->orWhere('memoriam', 'LIKE', "%{$search}%")
+                ->orWhere('amount', 'LIKE', "%{$search}%");
+        })->orderByDesc('id')
+            ->paginate(15);
+
+        return view('donates.index', compact(['donations', 'search', 'end', 'start']));
+    }
+
+    public function sendReport($month)
+    {
+
+    }
+
+    public function report(Request $request)
+    {
+        isset($request->date) ? $date = $request->date : $date = date('Y-m');
+        $records = Donate::whereMonth('created_at', substr($date, 5, 2))->whereYear('created_at', substr($date, 0, 4))->get();
+        $churchRecords = $records->where('purpose', 'church');
+        $cemeteryRecords = $records->where('purpose', 'cemetery');
+        $parishRecords = $records->where('purpose', 'purpose');
+        return view('donates.report', compact(['date', 'churchRecords', 'cemeteryRecords', 'parishRecords']));
+
     }
 }

@@ -27,26 +27,24 @@
                                 <label class="text-gray-700 " for="purpose">{{ __('Purpose') }}</label>
 
                                 <div>
-                                    <div>
-                                        <label class="items-center">
-                                            <input autocomplete="off" id="purpose" type="radio" name="purpose" value="church" checked
-                                                   class="inline-flex @error('purpose') is-invalid @enderror">
-                                            <span class="ml-2">{{ __('church') }}</span>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <label class="items-center">
-                                            <input autocomplete="off" id="purpose" type="radio" name="purpose" value="cemetery"
-                                                   class="inline-flex @error('purpose') is-invalid @enderror">
-                                            <span class="ml-2">{{ __('cemetery') }}</span>
-                                        </label>
-                                    </div>
+                                    @foreach(['church', 'cemetery', 'parish'] as $purpose)
+                                        <div>
+                                            <label class="items-center">
+                                                <input autocomplete="off" id="purpose" type="radio" name="purpose"
+                                                       value="{{ $purpose }}"
+                                                       @if($loop->first)checked @endif
+                                                       class="inline-flex @error('purpose') is-invalid @enderror">
+                                                <span class="ml-2">{{ __($purpose) }}</span>
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                                 <div>
                                     <label class="text-gray-700 " for="memoriam">{{ __('Memoriam') }}</label>
-                                    <input autocomplete="off" id="memoriam" type="text" name="memoriam" value="{{old('memoriam')}}"
+                                    <input autocomplete="off" id="memoriam" type="text" name="memoriam"
+                                           value="{{old('memoriam')}}"
                                            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring @error('memoriam') is-invalid @enderror">
                                 </div>
 

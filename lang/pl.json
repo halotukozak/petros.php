@@ -721,7 +721,18 @@
     "Donation": "Ofiara",
     "Donor": "Ofiarodawca",
     "Purpose": "Cel",
-    "Memoriam": "Pamięci...",
+    "Memoriam": "Pamięci",
     "Amount": "Kwota",
-    "Print": "Drukuj"
+    "Print": "Drukuj",
+    "Date": "Data",
+    "Are you sure you want to delete the donation nr": "Jesteś pewny, że chcesz usunąć wpłatę nr",
+    "Yes, delete this donation.": "Tak, usuń tę wpłatę.",
+    "delete": "Usuwanie",
+    "create": "Dodawanie",
+    "index": "Lista",
+    "church": "Na kościół",
+    "cemetery": "Na cmentarz",
+    "Listen. I don't know what you're on...": "Posłuchaj, nie wiem o co chodzi...",
+    "report" : "Raport",
+    "parish" : "Na parafię"
 }

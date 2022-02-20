@@ -16,7 +16,7 @@
 
         }
 
-        h3{
+        h3 {
             padding: 30px;
         }
     </style>
@@ -54,24 +54,28 @@
         <tr>
             <td colspan="2" rowspan="2">
                 <h3>Αιτιολογία:</h3>
-                <p> Προσφορά
-                </p>
                 <p>
                     @switch($purpose)
                         @case('church')
-                        στον Ενοριακό Ναό
+                        Προσφορά στον Ενοριακό Ναό
                         @break
                         @case('cemetery')
-                        στο Κοιμητήριο Βάρης
+                        Προσφορά στο Κοιμητήριο Βάρης
+                        @break
+                        @case('parish')
+                        Ενοριακά Δικαιώματα
                         @break
                         @default
                         Piotruś Zjebałeś
                     @endswitch
                 </p>
                 <br/>
-                <h3> Εις μνήμη:
-                </h3>
-                <p>{{ $memoriam }}</p>
+                @if($memoriam != null)
+                    <h3> Εις μνήμη:
+                    </h3>
+                    <p>{{ $memoriam }}</p>
+                @endif
+
             </td>
             <td style="text-align: center">
                 <h4>Ο ΕΙΣΠΡΑΞΑΣ</h4>
