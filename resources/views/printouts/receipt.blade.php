@@ -35,10 +35,7 @@
             </th>
             <th
             ><h1>ΑΠΟΔΕΙΞΗ ΕΙΣΠΡΑΞΕΩΣ</h1>
-                {{--                <p style="font-weight: normal">{{__('Vari') . ", " . Carbon\Carbon::parse($created_at)->format("d/m/Y")}}--}}
                 <p style="font-weight: normal">{{"Βάρη, " . Carbon\Carbon::parse($created_at)->format("d/m/Y")}}
-                    &nbsp;
-                    &nbsp;
                     N<sup>0</sup> {{$id}}</p></th>
         </tr>
         </thead>
@@ -63,14 +60,14 @@
                         Προσφορά στο Κοιμητήριο Βάρης
                         @break
                         @case('parish')
-                        Ενοριακά Δικαιώματα
+                        Ενοριακά Δικαιώματα {{ date('Y') }}
                         @break
                         @default
                         Piotruś Zjebałeś
                     @endswitch
                 </p>
                 <br/>
-                @if($memoriam != null)
+                @if($memoriam != null && $purpose != 'parish')
                     <h3> Εις μνήμη:
                     </h3>
                     <p>{{ $memoriam }}</p>

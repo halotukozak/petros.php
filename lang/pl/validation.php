@@ -130,7 +130,10 @@ return [
     'uuid'                 => 'Pole :attribute musi być poprawnym identyfikatorem UUID.',
     'custom'               => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
+            'amount' => 'kwota',
+            'donor' => 'ofiarodawca',
+            'purpose' => 'cel',
+            'memoriam' => 'pamięci'
         ],
     ],
 ];
