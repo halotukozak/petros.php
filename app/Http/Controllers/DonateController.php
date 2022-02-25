@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\MonthlyRaport;
+use App\Mail\MonthlyReport;
 use App\Models\Donate;
 use Egulias\EmailValidator\Result\Reason\DomainAcceptsNoMail;
 use Illuminate\Http\Request;
@@ -18,7 +18,6 @@ class DonateController extends Controller
 
     public function index()
     {
-        Mail::to(auth()->user())->send(new MonthlyRaport());
         return view('donates.index')->with('donations', Donate::orderByDesc('id')->paginate(15));
     }
 
@@ -76,22 +75,26 @@ class DonateController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $start = $request->start;
-        $end = $request->end;
+        $start = $request->input('start');
+        $end = $request->input('end');
+        $query = Donate::query();
 
-        $donations = Donate::whereBetween('created_at', [$start, $end])->where(function ($query) use ($search) {
+        if ($start != null) {
+            $query->where('created_at', '>=', $start);
+        }
+        if ($end != null) {
+            $query->where('created_at', '<=', $end . " 23:59:59");
+        }
+
+        if ($search != null) {
             $query->where('donor', 'LIKE', "%{$search}%")
                 ->orWhere('memoriam', 'LIKE', "%{$search}%")
                 ->orWhere('amount', 'LIKE', "%{$search}%");
-        })->orderByDesc('id')
+        }
+        $donations = $query->orderByDesc('id')
             ->paginate(15);
 
         return view('donates.index', compact(['donations', 'search', 'end', 'start']));
-    }
-
-    public function sendReport($month)
-    {
-
     }
 
     public function report(Request $request)
@@ -100,7 +103,9 @@ class DonateController extends Controller
         $records = Donate::whereMonth('created_at', substr($date, 5, 2))->whereYear('created_at', substr($date, 0, 4))->get();
         $churchRecords = $records->where('purpose', 'church');
         $cemeteryRecords = $records->where('purpose', 'cemetery');
-        $parishRecords = $records->where('purpose', 'purpose');
+        $parishRecords = $records->where('purpose', 'parish');
+
+
         return view('donates.report', compact(['date', 'churchRecords', 'cemeteryRecords', 'parishRecords']));
 
     }
